@@ -1,58 +1,55 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
+
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
-
-
-import modelo.Empleado;
+import java.sql.SQLException;
+import conexion.Conexion;
 import modelo.Nomina;
-
-
-
-/*Mostrar Base de datos de empleado*/
+/**
+ * 
+ * @author Alicia
+ *Métodos para mostrar la tabla de empleados, y salario según id
+ */
 public class NominaDaoImpl implements NominaDao{
-/*Mostrar sueldo segun dni*/
-	public Nomina show1(String dni) {
-		Nomina nom =new Nomina();
-		
-		String sql = "select * from nomina where dni=" + dni; 
-		
-		Connection bdConection;
-		Statement st;
-		ResultSet rs;
+	private static final String SQL_SELECT = "SELECT * FROM nomina";
+	/**
+	 * Muestrame el salario a través de su dni
+	 */
+	public Nomina showNomina(String dni) {
+		Nomina nomina = null;
+		Connection conn = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
 
 		try {
-			Connection bdConection1 = conexion();
-			st = bdConection1.createStatement(); 
-			rs = st.executeQuery(sql); 
-			while (rs.next()) {
-				nom.setDni(rs.getString("dni"));
-				System.out.println(" "+nom.getDni()+" ");
-				nom.setSueldo(rs.getInt("sueldo"));
-				System.out.println(" "+nom.getSueldo()+" ");
+			conn = Conexion.connection();
+			preparedStatement = conn.prepareStatement(SQL_SELECT);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				if (dni.trim().equalsIgnoreCase(resultSet.getString("dni"))) {
+					String dni2 = resultSet.getString("dni");
+					int sueldo = resultSet.getInt("sueldo");
+					nomina = new Nomina(dni2, sueldo);
+					break;
+				}
 			}
-			bdConection1.close(); 
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("no se ha podido conectar");
+		} catch (SQLException e) {
+			e.printStackTrace(System.out);
+		} finally {
+			if (resultSet != null) {
+				Conexion.close(resultSet);
+			}
+			if (preparedStatement != null) {
+				Conexion.close(preparedStatement);
+			}
+			if (conn != null) {
+				Conexion.close(conn);
+			}
 		}
-
-		return nom;
+		return nomina;
 	}
-	/*METODO CONEXION*/
 
-	public Connection conexion() {
-		Connection bdConection = null;
-		try {
-			Class.forName(JDBC_DRIVER);
-			bdConection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return bdConection;
-	}
 
 }

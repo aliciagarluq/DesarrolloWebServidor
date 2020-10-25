@@ -8,12 +8,17 @@ import java.util.ArrayList;
 
 import modelo.Empleado;
 import modelo.Nomina;
-
-
+/**
+ * 
+ * @author Alicia
+ *Métodos para mostrar la tabla de empleados, y salario según id
+ */
 
 /*Mostrar Base de datos de empleado*/
 public class EmpleadoDaoImpl implements EmpleadoDao{
+	
 	public ArrayList<Empleado> show(){
+		
 		ArrayList<Empleado> empleado = new ArrayList<Empleado>();
 		String sql = "select * from empleado" ; 
 		

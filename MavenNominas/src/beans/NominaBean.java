@@ -1,30 +1,29 @@
-package modelo;
-
-import java.util.Scanner;
+package beans;
+import modelo.Nomina;
 /**
  * 
  * @author Alicia
- *tabla nomina atributos
+ *este método, sirve para controlar con un paso intermedio la base de datos
  */
-public class Nomina{
+public class NominaBean{
 	private String dni;
 	private int sueldo;
 	
 	
-	public Nomina() {
+	public NominaBean() {
 	}
 	
-	/*public Nomina(Nomina nominaBean) {
+	public NominaBean(Nomina nominaBean) {
 		this.dni = nominaBean.getDni();
 		this.sueldo = nominaBean.getSueldo();
-	}*/
+	}
 
-	/*public Nomina(String dni, int sueldo) {
+	public NominaBean(String dni, int sueldo) {
 		this.dni = dni;
 		this.sueldo = sueldo;
-	}*/
+	}
 
-	public Nomina( String dni, int sueldo) {
+	public NominaBean(int id_nom, String dni, int sueldo) {
 
 		this.dni = dni;
 		this.sueldo = sueldo;

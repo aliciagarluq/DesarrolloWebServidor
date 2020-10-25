@@ -1,21 +1,35 @@
-package modelo;
+package beans;
+
+import modelo.Empleado;
 /**
  * 
  * @author Alicia
- *tabla empleado atributos
+ *este método, sirve para controlar con un paso intermedio la base de datos
  */
-public class Empleado {
+public class EmpleadoBean implements java.io.Serializable{
+
+	
+	private static final long serialVersionUID = 1L;
 	private String nombre;
 	private String dni;
 	private String sexo;
 	private int categoria;
 	private int anyos;
 
-	public Empleado() {
+	public EmpleadoBean() {
 		
 	}
+	
+	
+	public EmpleadoBean(Empleado empleado) {
+		this.nombre = empleado.getNombre();
+		this.dni = empleado.getDni();
+		this.sexo = empleado.getSexo();
+		this.categoria = empleado.getCategoria();
+		this.anyos = empleado.getAnyos();
+	}
 
-	public Empleado( String nombre, String dni, String sexo, int categoria, int anyos) {
+	public EmpleadoBean( String nombre, String dni, String sexo, int categoria, int anyos) {
 
 		this.nombre = nombre;
 		this.dni = dni;

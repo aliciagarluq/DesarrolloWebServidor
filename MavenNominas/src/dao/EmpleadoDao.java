@@ -4,9 +4,13 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import modelo.Empleado;
-
+/**
+ * 
+ * @author Alicia
+ *datos de la bbdd
+ */
 public interface EmpleadoDao {
-	final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+	final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
 	final String DB_URL = "jdbc:mysql://127.0.0.1/nominas2";
 	final String DB_USER = "root";
 	final String DB_PASS = "";
